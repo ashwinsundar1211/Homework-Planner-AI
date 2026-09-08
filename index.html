@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+
+    <meta name="description" content="AI-powered homework planner for organising tasks, deadlines, and study time.">
+
+    <link rel="stylesheet" href="style.css">
+
+    <title>Homework Planner AI</title>
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="header-content"> 
+        <h1 id="project-title">Homework Planner AI</h1>
+
+        <p>Your smart assistant for organising homework and planning your study time.</p>
+      </div>
+    </header>
+
+    <main>
+      <section id="add-homework" class="planner-section">
+        <h2>Add Homework</h2>
+
+        <p>Enter your homework details below.</p>
+
+        <form id="task-form">
+          <fieldset>
+            <legend>Homework Details</legend>
+
+            <div class="form-group">
+              <label for="task">Homework Task</label>
+
+              <input id="task" name="task" type="text" placeholder="Enter your homework" minlength="2" maxlength="100" required>
+            </div>
+
+            <div class="form-group">
+              <label for="subject">Subject</label>
+              <select id="subject" name="subject" required>
+                <option value="">Choose a subject</option>
+
+                <option value="math">Mathematics</option>
+
+                <option value="science">Science</option>
+
+                <option value="english">English</option>
+
+                <option value="french">French</option>
+
+                <option value="social-science">Social Science</option>
+
+                <option value="computer">Computer</option>
+
+                <option value="mscs">MSCS</option>
+
+                <option value="arabic">Arabic</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="due-date">Due Date</label>
+              <input id="due-date" name="dueDate" type="date" required>
+            </div>
+
+            <div class="form-group">
+              <label for="time">Estimated Time (minutes)</label>
+              <input id="time" name="time" type="number" min="1" max="600" placeholder="Example: 30" required>
+            </div>
+
+            <div class="form-group">
+              <label for="priority">Priority</label>
+              <select name="priority" id="priority" required>
+                <option value="">Choose priority</option>
+
+                <option value="high">High</option>
+
+                <option value="medium">Medium</option>
+
+                <option value="low">Low</option>
+              </select>
+            </div>
+
+            <button type="submit" id="add-task-button">Add Task</button>
+          </fieldset>
+        </form>
+      </section>
+
+      <section id="ai-recommendation" class="planner-section" aria-labelledby="recommendation-title">
+        <h2 id="recommendation-title">AI recommendation</h2>
+
+        <div id="recommendation-content" class="recommendation-box">
+          <p>Add your homework to receive a smart study recommendation</p>
+        </div>
+      </section>
+
+      <section id="task-dashboard" class="planner-section" aria-labelledby="dashboard-title">
+        <h2 id="dashboard-title">Task Dashboard</h2>
+
+        <div class="dashboard-stats">
+          <div class="stat-card">
+            <strong id="total-tasks">0</strong>
+            <span>Total Tasks</span>
+          </div>
+
+          <div class="stat-card">
+            <strong id="completed-tasks">0</strong>
+            <span>Completed</span>
+          </div>
+
+          <div class="stat-card">
+            <strong id="remaining-tasks">0</strong>
+            <span>Remaining</span>
+          </div>
+
+          <div class="stat-card">
+            <strong id="study-time">0</strong>
+            <span>Study Minutes</span>
+          </div>
+        </div>
+
+        <div id="task-list" class="task-list">
+          <p id="empty-state">No homework tasks have been added yet.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>Homework Planner AI - ICT Expo 2026 </p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
