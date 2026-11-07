@@ -2,8 +2,16 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <meta name="description" content="AI-powered homework planner for organising tasks, deadlines, and study time.">
+    <meta name="theme-color" content="#4f46e5">
+
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="icons/icon-192.png" sizes="192x192" type="image/png">
+    <link rel="apple-touch-icon" href="icons/icon-192.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Homework">
 
     <link rel="stylesheet" href="style.css">
 
@@ -11,126 +19,182 @@
   </head>
 
   <body>
-    <header class="site-header">
-      <div class="header-content"> 
-        <h1 id="project-title">Homework Planner AI</h1>
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12.5 9.5 17 19 7" />
+          </svg>
+        </span>
 
-        <p>Your smart assistant for organising homework and planning your study time.</p>
+        <span class="brand-text">
+          <strong>Homework Planner</strong>
+          <small>AI study assistant</small>
+        </span>
+      </div>
+
+      <div class="topbar-actions">
+        <button type="button" class="btn btn-ghost" id="install-btn" hidden>Install app</button>
+
+        <button type="button" class="btn btn-primary" id="new-task-btn" aria-label="Add homework">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true">
+            <path d="M12 5v14M5 12h14" />
+          </svg>
+          <span>Add homework</span>
+        </button>
       </div>
     </header>
 
-    <main>
-      <section id="add-homework" class="planner-section">
-        <h2>Add Homework</h2>
+    <main class="content">
+      <section class="up-next" aria-labelledby="recommendation-title">
+        <div class="up-next-head">
+          <h2 id="recommendation-title">Up next</h2>
+          <span class="pill">AI recommendation</span>
+        </div>
 
-        <p>Enter your homework details below.</p>
-
-        <form id="task-form">
-          <fieldset>
-            <legend>Homework Details</legend>
-
-            <div class="form-group">
-              <label for="task">Homework Task</label>
-
-              <input id="task" name="task" type="text" placeholder="Enter your homework" minlength="2" maxlength="100" required>
-            </div>
-
-            <div class="form-group">
-              <label for="subject">Subject</label>
-              <select id="subject" name="subject" required>
-                <option value="">Choose a subject</option>
-
-                <option value="math">Mathematics</option>
-
-                <option value="science">Science</option>
-
-                <option value="english">English</option>
-
-                <option value="french">French</option>
-
-                <option value="social-science">Social Science</option>
-
-                <option value="computer">Computer</option>
-
-                <option value="mscs">MSCS</option>
-
-                <option value="arabic">Arabic</option>
-
-                <option value="general">General</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label for="due-date">Due Date</label>
-              <input id="due-date" name="dueDate" type="date" required>
-            </div>
-
-            <div class="form-group">
-              <label for="time">Estimated Time (minutes)</label>
-              <input id="time" name="time" type="number" min="1" max="600" placeholder="Example: 30" required>
-            </div>
-
-            <div class="form-group">
-              <label for="priority">Priority</label>
-              <select name="priority" id="priority" required>
-                <option value="">Choose priority</option>
-
-                <option value="high">High</option>
-
-                <option value="medium">Medium</option>
-
-                <option value="low">Low</option>
-              </select>
-            </div>
-
-            <button type="submit" id="add-task-button">Add Task</button>
-          </fieldset>
-        </form>
-      </section>
-
-      <section id="ai-recommendation" class="planner-section" aria-labelledby="recommendation-title">
-        <h2 id="recommendation-title">AI recommendation</h2>
-
-        <div id="recommendation-content" class="recommendation-box">
-          <p>Add your homework to receive a smart study recommendation</p>
+        <div id="recommendation-content" class="up-next-body">
+          <p>Add your homework to receive a smart study recommendation.</p>
         </div>
       </section>
 
-      <section id="task-dashboard" class="planner-section" aria-labelledby="dashboard-title">
-        <h2 id="dashboard-title">Task Dashboard</h2>
+      <section class="stats" aria-label="Your progress">
+        <div class="stat">
+          <strong id="total-tasks">0</strong>
+          <span>Total tasks</span>
+        </div>
 
-        <div class="dashboard-stats">
-          <div class="stat-card">
-            <strong id="total-tasks">0</strong>
-            <span>Total Tasks</span>
-          </div>
+        <div class="stat">
+          <strong id="completed-tasks">0</strong>
+          <span>Completed</span>
+        </div>
 
-          <div class="stat-card">
-            <strong id="completed-tasks">0</strong>
-            <span>Completed</span>
-          </div>
+        <div class="stat">
+          <strong id="remaining-tasks">0</strong>
+          <span>Remaining</span>
+        </div>
 
-          <div class="stat-card">
-            <strong id="remaining-tasks">0</strong>
-            <span>Remaining</span>
-          </div>
+        <div class="stat">
+          <strong id="study-time">0</strong>
+          <span>Minutes to study</span>
+        </div>
+      </section>
 
-          <div class="stat-card">
-            <strong id="study-time">0</strong>
-            <span>Study Minutes</span>
+      <section class="planner" aria-labelledby="dashboard-title">
+        <div class="planner-head">
+          <h2 id="dashboard-title">Your homework</h2>
+
+          <div class="toolbar">
+            <label class="search" for="search">
+              <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+                <circle cx="11" cy="11" r="6.5" />
+                <path d="m16 16 4 4" />
+              </svg>
+              <input id="search" type="search" placeholder="Search homework" autocomplete="off">
+            </label>
+
+            <select id="sort" class="select" aria-label="Sort homework">
+              <option value="smart">Smart order</option>
+              <option value="due">Due date</option>
+              <option value="priority">Priority</option>
+            </select>
           </div>
         </div>
 
-        <div id="task-list" class="task-list">
-          <p id="empty-state">No homework tasks have been added yet.</p>
+        <div class="filters" role="group" aria-label="Filter homework">
+          <button type="button" class="chip is-active" data-filter="all">All <span class="chip-count" id="count-all">0</span></button>
+          <button type="button" class="chip" data-filter="today">Today <span class="chip-count" id="count-today">0</span></button>
+          <button type="button" class="chip" data-filter="overdue">Overdue <span class="chip-count" id="count-overdue">0</span></button>
+          <button type="button" class="chip" data-filter="done">Done <span class="chip-count" id="count-done">0</span></button>
+        </div>
+
+        <div id="task-list" class="task-list"></div>
+
+        <div id="empty-state" class="empty-state">
+          <p class="empty-title">No homework here yet</p>
+          <p class="empty-text">Add your first task and it will show up on your planner.</p>
+          <button type="button" class="btn btn-primary" data-action="new">Add homework</button>
         </div>
       </section>
     </main>
 
-    <footer class="site-footer">
-      <p>Homework Planner AI - ICT Expo 2026 </p>
-    </footer>
+    <dialog id="task-dialog" class="dialog">
+      <form id="task-form">
+        <div class="dialog-head">
+          <h2 id="dialog-title">Add homework</h2>
+          <button type="button" class="icon-btn" id="dialog-close" aria-label="Close">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+              <path d="M6 6l12 12M18 6 6 18" />
+            </svg>
+          </button>
+        </div>
 
-    <script src="script.js"></script>
+        <div class="form-grid">
+          <label class="field field-wide">
+            <span>Homework task</span>
+            <input id="task" name="task" type="text" placeholder="Example: Finish algebra worksheet" minlength="2" maxlength="100" required>
+          </label>
+
+          <label class="field">
+            <span>Subject</span>
+            <select id="subject" name="subject" required>
+              <option value="">Choose a subject</option>
+              <option value="math">Mathematics</option>
+              <option value="science">Science</option>
+              <option value="english">English</option>
+              <option value="french">French</option>
+              <option value="social-science">Social Science</option>
+              <option value="computer">Computer</option>
+              <option value="mscs">MSCS</option>
+              <option value="arabic">Arabic</option>
+              <option value="general">General</option>
+            </select>
+          </label>
+
+          <label class="field">
+            <span>Due date</span>
+            <input id="due-date" name="dueDate" type="date" required>
+          </label>
+
+          <label class="field">
+            <span>Estimated time (minutes)</span>
+            <input id="time" name="time" type="number" min="1" max="600" placeholder="30" required>
+          </label>
+
+          <label class="field">
+            <span>Priority</span>
+            <select id="priority" name="priority" required>
+              <option value="">Choose priority</option>
+              <option value="high">High</option>
+              <option value="medium">Medium</option>
+              <option value="low">Low</option>
+            </select>
+          </label>
+
+          <label class="field field-wide">
+            <span>Homework photo <em>(optional)</em></span>
+            <input id="proof" name="proof" type="file" accept="image/*">
+          </label>
+        </div>
+
+        <div id="proof-preview" class="proof-preview" hidden>
+          <img id="proof-image" alt="Homework photo preview">
+          <button type="button" class="btn btn-ghost" id="proof-remove">Remove photo</button>
+        </div>
+
+        <p class="form-error" id="form-error" role="alert" hidden></p>
+
+        <div class="dialog-actions">
+          <button type="button" class="btn btn-ghost" id="dialog-cancel">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="save-task-btn">Save task</button>
+        </div>
+      </form>
+    </dialog>
+
+    <div id="toast" class="toast" role="status" aria-live="polite" hidden>
+      <span id="toast-text"></span>
+      <button type="button" class="toast-action" id="toast-action" hidden>Undo</button>
+    </div>
+
+    <script type="module" src="app.js"></script>
   </body>
 </html>
